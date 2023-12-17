@@ -61,11 +61,6 @@ async function run() {
             if (category) {
                 queryObj.category = category;
             }
-            // const options = {
-            //     sort: {
-            //         price: filter.sort === "asc" ? 1 : -1
-            //     }
-            // }
             const couser = ProductCollection.find(queryObj);
             const result = await couser.toArray();
 
