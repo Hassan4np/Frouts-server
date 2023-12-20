@@ -35,6 +35,7 @@ async function run() {
         const ProductCollection = database.collection("products");
         const CartCollectuon = database.collection('cards');
         const OrdersCollectuon = database.collection('orders');
+        const UsersCollection = database.collection('users');
 
         //start out Project-->
 
@@ -54,8 +55,6 @@ async function run() {
 
             const category = req.query.category;
             const price = req.query.price;
-            console.log(price)
-            console.log(category)
 
             const queryObj = {};
             if (category) {
@@ -66,9 +65,16 @@ async function run() {
 
             res.send(result)
         });
+        app.get('/products/category/:brand', async(req, res) => {
+            const brand = req.params.brand;
+            const catehgory = {
+                category: brand
+            }
+            const result = await ProductCollection.find(catehgory).toArray();
+            res.send(result)
+        })
         app.get('/cards', async(req, res) => {
             const email = req.query.email;
-            console.log(email)
             const query = { email: email }
             const result = await CartCollectuon.find(query).toArray();
             res.send(result)
@@ -102,6 +108,12 @@ async function run() {
             const cardsclear = await CartCollectuon.deleteMany(query);
 
             res.send({ orders, cardsclear })
+
+        });
+        app.post('/users', async(req, res) => {
+            const user = req.body;
+            const result = await UsersCollection.insertOne(user);
+            res.send(result)
 
         });
 
