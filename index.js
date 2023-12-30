@@ -15,6 +15,8 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// like side: https://enchanting-wisp-d0c7ab.netlify.app
+//server side: https://frouts-server.vercel.app
 
 const uri = `mongodb+srv://${process.env.USER_DB}:${process.env.PASS_DB}@cluster0.uruvxpx.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -67,6 +69,7 @@ async function run() {
         });
         app.get('/products/category/:brand', async(req, res) => {
             const brand = req.params.brand;
+
             const catehgory = {
                 category: brand
             }
